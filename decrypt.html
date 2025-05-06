@@ -38,6 +38,8 @@
 
       <label>Hasil Plaintext:</label>
       <textarea id="plainResult" rows="4" readonly></textarea>
+      <button class="btn-copy" onclick="copyPlain()">📋 Copy</button>
+      <p id="copyMessage" class="copy-alert">Tersalin!</p>
     </div>
   </div>
 
@@ -90,5 +92,23 @@
       }
     }
   </script>
+
+<script>
+  function copyPlain() {
+    const text = document.getElementById("plainResult").value;
+    if (text.trim() === "") return;
+    navigator.clipboard.writeText(text);
+    showCopyAlert();
+  }
+
+  function showCopyAlert() {
+    const msg = document.getElementById("copyMessage");
+    msg.style.opacity = "1";
+    setTimeout(() => {
+      msg.style.opacity = "0";
+    }, 1500);
+  }
+</script>
+
 </body>
 </html>

@@ -162,3 +162,28 @@ body {
     text-decoration: underline;
   }
   
+  .btn-copy {
+    background-color: #6c63ff;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn-copy:hover {
+    background-color: #594fc9;
+  }
+  
+  .copy-alert {
+    color: #2ecc71;
+    font-size: 13px;
+    margin-top: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+  }
+  
