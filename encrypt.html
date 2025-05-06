@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Enkripsi DES</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <style>
+    .alert {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="encrypt.html" class="nav-link active">🔐 Enkripsi</a>
+    <a href="decrypt.html" class="nav-link">🔓 Dekripsi</a>
+    <a href="index.html" class="profile-icon">
+      <img src="img/gary.jpg" alt="Profile Gary" />
+    </a>
+  </div>
+
+  <div class="center-container">
+    <div class="card">
+      <h2>Enkripsi Teks (DES)</h2>
+
+      <label>Kunci (8 karakter):</label>
+      <input type="text" id="key" maxlength="8" />
+      <div id="keyAlert" class="alert" style="display: none;">Kunci harus diisi (8 karakter).</div>
+
+      <label>Plaintext:</label>
+      <textarea id="plaintext" rows="4"></textarea>
+      <div id="plainAlert" class="alert" style="display: none;">Plaintext harus diisi.</div>
+
+      <button onclick="encrypt()">Encrypt</button>
+
+      <label>Hasil Ciphertext:</label>
+      <textarea id="cipherResult" rows="4" readonly></textarea>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script src="des.js"></script>
+
+  <script>
+    document.getElementById("plaintext").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // cegah newline
+        encrypt(); // panggil fungsi
+      }
+    });
+  </script>
+  
+
+  <script>
+    function encrypt() {
+      const key = document.getElementById("key").value.trim();
+      const plaintext = document.getElementById("plaintext").value.trim();
+      const keyAlert = document.getElementById("keyAlert");
+      const plainAlert = document.getElementById("plainAlert");
+      const result = document.getElementById("cipherResult");
+
+      let valid = true;
+
+      // Reset alert
+      keyAlert.style.display = "none";
+      plainAlert.style.display = "none";
+      result.value = "";
+
+      // Validasi kunci
+      if (!key || key.length !== 8) {
+        keyAlert.style.display = "block";
+        valid = false;
+      }
+
+      // Validasi plaintext
+      if (!plaintext) {
+        plainAlert.style.display = "block";
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Enkripsi menggunakan DES (CryptoJS)
+      const encrypted = CryptoJS.DES.encrypt(plaintext, key).toString();
+      result.value = encrypted;
+    }
+  </script>
+</body>
+</html>
